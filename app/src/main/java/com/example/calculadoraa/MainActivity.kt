@@ -6,6 +6,9 @@ import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import java.lang.Exception
+import kotlin.math.log10
+import kotlin.math.pow
+import kotlin.math.sqrt
 
 class MainActivity : AppCompatActivity() {
 
@@ -110,7 +113,13 @@ class MainActivity : AppCompatActivity() {
                     throw RuntimeException("Unexpected: " + ch.toChar())
                 }
 
-                if (eat('^'.toInt())) x = Math.pow(x, parseFactor()) // Exponenciación
+                if (eat('^'.toInt())) x = x.pow(parseFactor()) // Exponenciación
+                else if (eat('√'.toInt())) x = sqrt(x) // Raíz cuadrada
+                else if (eat('l'.toInt())) { // Logaritmo
+                    eat('o'.toInt())
+                    eat('g'.toInt())
+                    x = log10(x)
+                }
                 return x
             }
         }.parse()
